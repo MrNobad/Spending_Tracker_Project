@@ -1,6 +1,6 @@
-require_relative( "../models/merchants.rb" )
-require_relative( "../models/tags.rb" )
-require_relative( "../models/transactions.rb" )
+require_relative( "../models/merchants" )
+require_relative( "../models/tags" )
+require_relative( "../models/transactions" )
 require("pry-byebug")
 
 Transaction.delete_all()
@@ -36,3 +36,13 @@ transaction3 = Transaction.new({"merchant_id" => merchant3.id, "tag_id" => tag3.
 transaction4 = Transaction.new({"merchant_id" => merchant4.id, "tag_id" => tag2.id, "amount" => "19.45"})
 transaction5 = Transaction.new({"merchant_id" => merchant5.id, "tag_id" => tag4.id, "amount" => "25.00"})
 transaction6 = Transaction.new({"merchant_id" => merchant1.id, "tag_id" => tag2.id, "amount" => "23.50"})
+
+transaction1.save
+transaction2.save
+transaction3.save
+transaction4.save
+transaction5.save
+transaction6.save
+
+# binding.pry
+# nil

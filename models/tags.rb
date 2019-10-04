@@ -1,8 +1,8 @@
 require_relative('../db/sql_runner')
 
-class Tags
+class Tag
 
-  atttr_reader(:type, :id)
+  attr_reader(:type, :id)
 
   def initialize( options )
     @id = options["id"].to_i if options['id']
@@ -34,3 +34,13 @@ class Tags
     sql = "DELETE FROM tags"
     SqlRunner.run( sql )
   end
+
+  def self.find( id )
+    sql = "SELECT * FROM tags
+    WHERE id = $1"
+    values = [id]
+    results = SqlRunner.run( sql, values )
+    return Tag.new( results.first )
+  end
+
+end
