@@ -2,14 +2,14 @@ require_relative('../db/sql_runner')
 
 class Transaction
 
-  attr_reader(:merchant_id, :tag_id, :amount, :id)
+  attr_reader(:merchant_id, :tag_id, :amount, :total_trans, :id)
 
   def initialize( options )
     @id = options["id"].to_i() if options["id"]
     @merchant_id = options["merchant_id"].to_i
     @tag_id = options["tag_id"].to_i
     @amount = options["amount"]
-    @total_trans = options[]
+    @total_trans = options["total_trans"]
   end
 
   def save()
@@ -29,15 +29,15 @@ class Transaction
     @id = results.first()["id"].to_i
   end
 
-  # def transactions()
-  #     sql = "SELECT tag.* FROM tags
-  #     INNER JOIN tags
-  #     ON tarnsaction_id = transaction.tag_id
-  #     WHERE tag_id = $1"
-  #     values = [@id]
-  #     houses = SqlRunner.run(sql, values)
-  #     return tags.map { |tag| Tag.new(tag) }
-  #   end
+  def transactions()
+      sql = "SELECT tag.* FROM tags
+      INNER JOIN tags
+      ON tarnsaction_id = transaction.tag_id
+      WHERE tag_id = $1"
+      values = [@id]
+      houses = SqlRunner.run(sql, values)
+      return tags.map { |tag| Tag.new(tag) }
+    end
 
   def merchant()
     sql = "SELECT * FROM merchants
@@ -55,10 +55,10 @@ class Transaction
     return Tag.new( results.first )
   end
 
-  # def add(amount)
-  #   transaction.add(amount)
-  #   @total_trans += transaction.amount()
-  # end
+  def add(amount)
+    transaction.add(amount)
+    @total_trans += transaction.amount()
+  end
 
   def self.all()
     sql = "SELECT * FROM transactions"

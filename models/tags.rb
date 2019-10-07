@@ -5,7 +5,7 @@ class Tag
   attr_reader(:type, :id)
 
   def initialize( options )
-    @id = options["id"].to_i if options['id']
+    @id = options["id"].to_i if options['id'].to_i
     @type = options["type"]
   end
 
