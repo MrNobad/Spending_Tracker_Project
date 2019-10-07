@@ -14,7 +14,8 @@ CREATE TABLE tags (
 
 CREATE TABLE transactions (
   id SERIAL8 PRIMARY KEY,
+  date_time VARCHAR(255),
   merchant_id INT8 REFERENCES merchants(id) ON DELETE CASCADE,
   tag_id INT8 REFERENCES tags(id) ON DELETE CASCADE,
-  amount DECIMAL(18, 2)
+  amount DECIMAL(10, 2)
 );

@@ -2,29 +2,30 @@ require_relative('../db/sql_runner')
 
 class Transaction
 
-  attr_reader(:merchant_id, :tag_id, :amount, :total_trans, :id)
+  attr_reader(:date_time, :merchant_id, :tag_id, :amount, :id)
 
   def initialize( options )
     @id = options["id"].to_i() if options["id"]
+    @date_time = options["date_time"]
     @merchant_id = options["merchant_id"].to_i
     @tag_id = options["tag_id"].to_i
-    @amount = options["amount"]
-    @total_trans = options["total_trans"]
+    @amount = options["amount"].to_f
   end
 
   def save()
     sql = "INSERT INTO transactions
     (
+      date_time,
       merchant_id,
       tag_id,
       amount
     )
     VALUES
     (
-      $1, $2, $3
+      $1, $2, $3, $4
     )
     RETURNING id"
-    values = [@merchant_id, @tag_id, @amount]
+    values = [@date_time, @merchant_id, @tag_id, @amount]
     results = SqlRunner.run(sql, values)
     @id = results.first()["id"].to_i
   end
@@ -55,10 +56,6 @@ class Transaction
     return Tag.new( results.first )
   end
 
-  def add(amount)
-    transaction.add(amount)
-    @total_trans += transaction.amount()
-  end
 
   def self.all()
     sql = "SELECT * FROM transactions"
@@ -85,6 +82,17 @@ class Transaction
     transaction = SqlRunner.run( sql, values )
     result = Transaction.new( transaction.first )
     return result
+  end
+
+  def self.total_trans()
+    all_transactions = Transaction.all()
+
+    running_total = 0
+    for transaction in all_transactions
+      running_total += transaction.amount
+    end
+
+    return running_total
   end
 
 

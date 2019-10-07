@@ -1,41 +1,36 @@
 <h1>Transactions</h1>
-<h1><%= @total_trans %></h1>
+<table>
+  <tr>
+    <th>Total Spend</th>
+  </tr>
+  <tr>
+    <td>£<%= @transaction_total %></td>
+  </tr>
+</table>
 
 
 <p>
   <a href="/transactions/new">New Transaction</a>
 </p>
 
-<!-- <ul
-  <% for transaction in @transactions %>
-  <li>
-    <p><%= transaction.merchant.name %> --- <%= transaction.tag.type %> --- £<%= transaction.amount %> </p>
-    <p>
-      <form action="/transactions/<%= transaction.id %>/delete" method="POST">
-        <input type="submit" value="DELETE">
-      </form>
-    </p>
-  </li>
-  <% end %>
-</ul> -->
 
 <table>
   <tr>
+    <th>Date</th>
+    <th></th>
     <th>Merchant</th>
     <th></th>
-    <th></th>
     <th>Transaction Type</th>
-    <th></th>
     <th></th>
     <th>Amount</th>
   </tr>
   <% for transaction in @transactions %>
   <tr>
+    <td><%= transaction.date_time %></td>
+    <td></td>
     <td><%= transaction.merchant.name  %></td>
     <td></td>
-    <td></td>
     <td><%= transaction.tag.type %></td>
-    <td></td>
     <td></td>
     <td>£<%= transaction.amount %></td>
     <td><form action="/transactions/<%= transaction.id %>/delete" method="POST">

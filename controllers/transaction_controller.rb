@@ -5,6 +5,7 @@ also_reload('../models/*')
 
 get '/transactions' do
   @transactions = Transaction.all
+  @transaction_total = Transaction.total_trans
   erb(:"transactions/index")
 end
 
@@ -25,7 +26,7 @@ get '/transactions/:id' do
   erb( :"transactions/index" )
 end
 
-post '/transaction/:id/delete' do
+post '/transactions/:id/delete' do
   Transaction.delete(params[:id])
   redirect to("/transactions")
 end

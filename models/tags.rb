@@ -30,6 +30,13 @@ class Tag
     return results.map { |tag| Tag.new( tag ) }
   end
 
+  def self.delete(id)
+    sql = "DELETE FROM tags
+    WHERE id = $1"
+    values = [id]
+    SqlRunner.run( sql, values )
+  end
+
   def self.delete_all
     sql = "DELETE FROM tags"
     SqlRunner.run( sql )

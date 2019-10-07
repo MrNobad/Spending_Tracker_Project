@@ -1,6 +1,9 @@
 <h1>New Transaction</h1>
 
 <form action="/transactions" method="post">
+  <label for="date-time">Date: </label>
+  <input type="text" placeholder="DD/MM/YYYY" name="date-time" id="date_time">
+  <br>
   <label>
     Select a Merchant:
     <select name="merchant_id">
@@ -19,7 +22,7 @@
     </select>
     <br>
     <label for="amount">Transaction Amount: £</label>
-    <input type="number" name="amount" id="amount">
+    <input type="number" palceholder="0.00" step="0.01" name="amount" id="amount">
     <br>
-    <input class="btn btn--action" type='submit' value='Add Transaction'>
+    <input type='submit' value='Add Transaction'>
   </form>
