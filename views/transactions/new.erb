@@ -9,7 +9,7 @@
       <% end %>
     </select>
   </label>
-
+  <br>
   <label>
     Select Type of Transaction:
     <select name="tag_id">
@@ -17,5 +17,9 @@
       <option value="<%= tag.id %>"><%= tag.type %></option>
       <% end %>
     </select>
+    <br>
+    <label for="amount">Transaction Amount: £</label>
+    <input type="number" name="amount" id="amount">
+    <br>
     <input class="btn btn--action" type='submit' value='Add Transaction'>
   </form>

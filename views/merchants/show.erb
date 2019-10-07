@@ -1,0 +1,7 @@
+<h1><%= @merchant.name %> (merchant)</h1>
+
+<ul>
+  <% @merchant.tags.each do |tag| %>
+  <li><%= tag.name %></li>
+  <% end %>
+</ul>

@@ -2,34 +2,68 @@ require_relative('../db/sql_runner')
 
 class Transaction
 
-  attr_reader(:merchant_id, :tag_id, :id)
+  attr_reader(:merchant_id, :tag_id, :amount, :id)
 
   def initialize( options )
-    @id = options["id"].to_i if options["id"]
+    @id = options["id"].to_i() if options["id"]
     @merchant_id = options["merchant_id"].to_i
     @tag_id = options["tag_id"].to_i
+    @amount = options["amount"]
+    @total_trans = options[]
   end
 
   def save()
     sql = "INSERT INTO transactions
     (
       merchant_id,
-      tag_id
+      tag_id,
+      amount
     )
     VALUES
     (
-      $1, $2
+      $1, $2, $3
     )
     RETURNING id"
-    values = [@merchant_id, @tag_id]
+    values = [@merchant_id, @tag_id, @amount]
     results = SqlRunner.run(sql, values)
     @id = results.first()["id"].to_i
   end
 
+  # def transactions()
+  #     sql = "SELECT tag.* FROM tags
+  #     INNER JOIN tags
+  #     ON tarnsaction_id = transaction.tag_id
+  #     WHERE tag_id = $1"
+  #     values = [@id]
+  #     houses = SqlRunner.run(sql, values)
+  #     return tags.map { |tag| Tag.new(tag) }
+  #   end
+
+  def merchant()
+    sql = "SELECT * FROM merchants
+    WHERE id = $1"
+    values = [@merchant_id]
+    results = SqlRunner.run( sql, values )
+    return Merchant.new( results.first )
+  end
+
+  def tag()
+    sql = "SELECT * FROM tags
+    WHERE id = $1"
+    values = [@tag_id]
+    results = SqlRunner.run( sql, values )
+    return Tag.new( results.first )
+  end
+
+  # def add(amount)
+  #   transaction.add(amount)
+  #   @total_trans += transaction.amount()
+  # end
+
   def self.all()
     sql = "SELECT * FROM transactions"
     results = SqlRunner.run(sql)
-    return results.map { |transaction| Transaction.new( transaction ) }
+    return results.map { |hash| Transaction.new( hash ) }
   end
 
   def self.delete_all()
@@ -48,8 +82,11 @@ class Transaction
     sql = "SELECT * FROM transactions
     WHERE id = $1"
     values = [id]
-    results = SqlRunner.run( sql, values )
-    return Transaction.new( results.first )
+    transaction = SqlRunner.run( sql, values )
+    result = Transaction.new( transaction.first )
+    return result
   end
+
+
 
 end

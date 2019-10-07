@@ -1,0 +1,11 @@
+<h1>Transaction Type <%= @tag.type %></h1>
+
+<p>Amount: <%= @transaction.amount %></p>
+
+<h3>Merchants:</h3>
+
+<ul>
+  <% @tag.merchant.each do |merchant| %>
+  <li><%= merchant.name %></li>
+  <% end %>
+</ul>

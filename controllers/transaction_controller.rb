@@ -11,7 +11,7 @@ end
 get '/transactions/new' do
   @merchants = Merchant.all
   @tags = Tag.all
-  erb(:"transaction/new")
+  erb(:"transactions/new")
 end
 
 post '/transactions' do

@@ -6,3 +6,21 @@
     <li><a href="/transactions/new">Add Transaction</a></li>
   </ul>
 </nav>
+<p>Merchant Name: <%= @merchant.name %></p>
+<p>Transaction Type: <%= @tag.type %></p>
+<p>Transaction Amount: <%= @transaction.type %></p>
+
+<table>
+  <tr>
+    <th>Merchant</th>
+    <th></th>
+    <th>Type</th>
+  </tr>
+  <% for transaction in @transactions %>
+  <tr>
+    <td><a href="/transactions/<%= transaction.id %>"><%= merchant.name %></a></td>
+    <td>|</td>
+    <td><%= tag.type %></td>
+  </tr>
+  <% end %>
+</table>
