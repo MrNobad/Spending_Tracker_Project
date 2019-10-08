@@ -33,7 +33,7 @@ class Transaction
   def transactions()
       sql = "SELECT tag.* FROM tags
       INNER JOIN tags
-      ON tarnsaction_id = transaction.tag_id
+      ON transaction_id = transaction.tag_id
       WHERE tag_id = $1"
       values = [@id]
       houses = SqlRunner.run(sql, values)
@@ -56,6 +56,27 @@ class Transaction
     return Tag.new( results.first )
   end
 
+  def self.order_by_date()
+    sql = "SELECT * FROM transactions
+    ORDER BY date_time"
+    values = [@date_time]
+    results = SqlRunner.run( sql )
+    return results.map { |hash| Transaction.new( hash ) }
+  end
+
+  def self.order_by_merchant()
+    sql = "SELECT * FROM transactions
+    ORDER BY merchant_id"
+    results = SqlRunner.run( sql )
+    return results.map { |hash| Transaction.new( hash ) }
+  end
+
+  def self.order_by_tag()
+    sql = "SELECT * FROM transactions
+    ORDER BY tag_id"
+    results = SqlRunner.run( sql )
+    return results.map { |hash| Transaction.new( hash ) }
+  end
 
   def self.all()
     sql = "SELECT * FROM transactions"

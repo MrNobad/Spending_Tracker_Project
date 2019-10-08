@@ -30,3 +30,10 @@ post '/transactions/:id/delete' do
   Transaction.delete(params[:id])
   redirect to("/transactions")
 end
+
+get "/transactions/sorted/:sort_by" do
+  @transaction_total = Transaction.total_trans
+  @transaction_order = Transaction.order_by_date
+  # @transaction_order = Transaction.order_by_date(params["order_by_date"])
+  erb(:"transactions/index")
+end

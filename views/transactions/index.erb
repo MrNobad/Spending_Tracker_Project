@@ -1,20 +1,33 @@
 <h1>Transactions</h1>
-<table>
+
+<table class="center">
   <tr>
-    <th>Total Spend</th>
+    <th class="center">Total Spend</th>
+    <th class="center">£<%= @transaction_total %></th>
   </tr>
   <tr>
-    <td>£<%= @transaction_total %></td>
+
   </tr>
 </table>
 
 
-<p>
-  <a href="/transactions/new">New Transaction</a>
-</p>
-
-
-<table>
+<table class="center">
+  <tr>
+    <td>
+      <label>
+      Sort By:
+      <select name="transaction_id">
+        <option action="/transactions/sorted/<%= @transaction_order %>" method="get" value="Date">Date</option>
+      </select>
+    </label>
+  </td>
+  </tr>
+  <tr>
+    <td><a class="center" href="/transactions/new">New Transaction</a></td>
+  </tr>
+  <tr>
+    <td></td>
+  </tr>
   <tr>
     <th>Date</th>
     <th></th>
@@ -37,6 +50,5 @@
       <input type="submit" value="DELETE">
     </form></td>
   </tr>
-
   <% end %>
 </table>
