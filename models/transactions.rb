@@ -1,4 +1,5 @@
 require_relative('../db/sql_runner')
+require("pry")
 
 class Transaction
 
@@ -31,14 +32,14 @@ class Transaction
   end
 
   def transactions()
-      sql = "SELECT tag.* FROM tags
-      INNER JOIN tags
-      ON transaction_id = transaction.tag_id
-      WHERE tag_id = $1"
-      values = [@id]
-      houses = SqlRunner.run(sql, values)
-      return tags.map { |tag| Tag.new(tag) }
-    end
+    sql = "SELECT tag.* FROM tags
+    INNER JOIN tags
+    ON transaction_id = transaction.tag_id
+    WHERE tag_id = $1"
+    values = [@id]
+    houses = SqlRunner.run(sql, values)
+    return tags.map { |tag| Tag.new(tag) }
+  end
 
   def merchant()
     sql = "SELECT * FROM merchants
@@ -59,23 +60,20 @@ class Transaction
   def self.order_by_date()
     sql = "SELECT * FROM transactions
     ORDER BY date_time"
-    values = [@date_time]
     results = SqlRunner.run( sql )
     return results.map { |hash| Transaction.new( hash ) }
   end
 
   def self.order_by_merchant()
-    sql = "SELECT * FROM transactions
-    ORDER BY merchant_id"
-    results = SqlRunner.run( sql )
-    return results.map { |hash| Transaction.new( hash ) }
+    transactions = self.all()
+    result = transactions.sort_by { |transaction| transaction.merchant.name}
+    return result
   end
 
   def self.order_by_tag()
-    sql = "SELECT * FROM transactions
-    ORDER BY tag_id"
-    results = SqlRunner.run( sql )
-    return results.map { |hash| Transaction.new( hash ) }
+    transactions = self.all()
+    result = transactions.sort_by { |transaction| transaction.tag.type}
+    return result
   end
 
   def self.all()
@@ -115,6 +113,7 @@ class Transaction
 
     return running_total
   end
+
 
 
 

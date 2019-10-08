@@ -14,12 +14,19 @@
 <table class="center">
   <tr>
     <td>
+      <form action="/transactions/sorted" method="get">
+
+
       <label>
       Sort By:
-      <select name="transaction_id">
-        <option action="/transactions/sorted/<%= @transaction_order %>" method="get" value="Date">Date</option>
+      <select name="sort_by">
+        <option value="Date">Date</option>
+        <option value="Tag">Transaction Type</option>
+        <option value="Merchant">Merchant</option>
       </select>
     </label>
+    <input type="submit" value="Sort">
+      </form>
   </td>
   </tr>
   <tr>

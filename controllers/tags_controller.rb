@@ -3,6 +3,7 @@ also_reload('../models/*')
 
 get '/tags' do
   @tags = Tag.all()
+  @transaction_tag_total = Tag.total_tag_amount
   erb(:"tags/index")
 end
 

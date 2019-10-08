@@ -2,10 +2,11 @@ require_relative('../models/transactions.rb')
 require_relative('../models/merchants.rb')
 require_relative('../models/tags.rb')
 also_reload('../models/*')
+require("pry")
 
 get '/transactions' do
   @transactions = Transaction.all
-  @transaction_total = Transaction.total_trans
+  @transaction_total = Transaction.total_trans.to_f
   erb(:"transactions/index")
 end
 
@@ -21,6 +22,14 @@ post '/transactions' do
   redirect to("/transactions")
 end
 
+get "/transactions/sorted" do
+  @transaction_total = Transaction.total_trans
+  @transactions = Transaction.order_by_date if params["sort_by"] == "Date"
+  @transactions = Transaction.order_by_tag if params["sort_by"] == "Tag"
+  @transactions = Transaction.order_by_merchant if params["sort_by"] == "Merchant"
+  erb(:"transactions/index")
+end
+
 get '/transactions/:id' do
   @transactions = Transaction.find(params['id'].to_i)
   erb( :"transactions/index" )
@@ -31,9 +40,8 @@ post '/transactions/:id/delete' do
   redirect to("/transactions")
 end
 
-get "/transactions/sorted/:sort_by" do
-  @transaction_total = Transaction.total_trans
-  @transaction_order = Transaction.order_by_date
-  # @transaction_order = Transaction.order_by_date(params["order_by_date"])
-  erb(:"transactions/index")
-end
+
+
+# post "/transactions/sorted" do
+#   redirect to("/transactions/sorted/"+params[:transaction_id])
+# end

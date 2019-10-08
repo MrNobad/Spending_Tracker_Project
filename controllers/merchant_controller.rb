@@ -3,6 +3,7 @@ also_reload('../models/*')
 
 get '/merchants' do
   @merchants = Merchant.all()
+  @transaction_merchant_total = Merchant.total_merchant_amount
   erb(:"merchants/index")
 end
 

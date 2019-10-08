@@ -56,4 +56,24 @@ class Merchant
     results = SqlRunner.run( sql, values )
     return Merchant.new( results.first )
   end
+
+  def self.find(id)
+      sql = "SELECT * FROM transactions WHERE id = $1"
+      values = [id]
+      results = SqlRunner.run(sql, values)
+      transaction_hash = results.first # OR results[0]
+      transaction = Transaction.new(transaction_hash)
+      return transaction
+    end
+
+    def self.total_merchant_amount()
+      all_transactions = Transaction.all()
+
+      running_total = 0
+      for transaction in all_transactions
+        running_total += transaction.amount
+      end
+
+      return running_total
+    end
 end
