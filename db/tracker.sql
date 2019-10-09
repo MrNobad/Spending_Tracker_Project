@@ -9,7 +9,7 @@ CREATE TABLE merchants (
 
 CREATE TABLE tags (
   id SERIAL8 PRIMARY KEY,
-  type VARCHAR(255)
+  type VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE transactions (

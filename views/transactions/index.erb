@@ -1,61 +1,69 @@
+<br>
+<br>
 <h1>Transactions</h1>
 
 <table class="center">
   <tr>
-    <th class="center">Total Spend</th>
-    <th class="center">£<%= @transaction_total %></th>
+    <th class="center">Total Spend - £<%= @transaction_total %></th>
   </tr>
   <tr>
 
   </tr>
 </table>
 
-
-<table class="center">
-  <tr>
-    <td>
-      <form action="/transactions/sorted" method="get">
-
-
-      <label>
-      Sort By:
-      <select name="sort_by">
-        <option value="Date">Date</option>
-        <option value="Tag">Transaction Type</option>
-        <option value="Merchant">Merchant</option>
-      </select>
-    </label>
-    <input type="submit" value="Sort">
-      </form>
-  </td>
-  </tr>
-  <tr>
-    <td><a class="center" href="/transactions/new">New Transaction</a></td>
-  </tr>
-  <tr>
-    <td></td>
-  </tr>
-  <tr>
-    <th>Date</th>
-    <th></th>
-    <th>Merchant</th>
-    <th></th>
-    <th>Transaction Type</th>
-    <th></th>
-    <th>Amount</th>
-  </tr>
-  <% for transaction in @transactions %>
-  <tr>
-    <td><%= transaction.date_time %></td>
-    <td></td>
-    <td><%= transaction.merchant.name  %></td>
-    <td></td>
-    <td><%= transaction.tag.type %></td>
-    <td></td>
-    <td>£<%= transaction.amount %></td>
-    <td><form action="/transactions/<%= transaction.id %>/delete" method="POST">
-      <input type="submit" value="DELETE">
-    </form></td>
-  </tr>
-  <% end %>
-</table>
+  <table class="fixed_header center">
+    <thead>
+      <tr>
+        <td>
+          <form action="/transactions/sorted" method="get">
+            <label>
+              Sort By:
+              <select name="sort_by">
+                <option value="Date">Date</option>
+                <option value="Tag">Transaction Type</option>
+                <option value="Merchant">Merchant</option>
+              </select>
+            </label>
+            <input type="submit" value="Sort">
+          </form>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><form action="/transactions/new" method="get">
+          <input class="btn" type="submit" value="Add New Transaction">
+        </form></td>
+      </tr>
+      <tr>
+      </tr>
+      <tr>
+        <th>Date</th>
+        <th></th>
+        <th></th>
+        <th>Merchant</th>
+        <th></th>
+        <th></th>
+        <th>Transaction Type</th>
+        <th></th>
+        <th></th>
+        <th>Amount</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for transaction in @transactions %>
+      <tr>
+        <td><%= transaction.date_time %></td>
+        <!-- <td></td> -->
+        <td><%= transaction.merchant.name  %></td>
+        <!-- <td></td> -->
+        <td><%= transaction.tag.type %></td>
+        <!-- <td></td> -->
+        <td>£<%= transaction.amount %></td>
+        <td><form action="/transactions/<%= transaction.id %>/delete" method="POST">
+          <input type="submit" value="DELETE">
+        </form></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>

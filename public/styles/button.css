@@ -1,0 +1,15 @@
+.btn {
+  cursor: url('/images/money_cursor.png'), auto;
+  background-color: lightblue;
+  padding: 8px 12px;
+  color: blue;
+  cursor:pointer;
+  font-family: Helvetica;
+  font-size: 20px;
+  border: 2px solid blue;
+  border-radius: 4px;
+}
+
+input.left {
+  align-items: center;
+}

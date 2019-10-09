@@ -3,3 +3,17 @@ form.center {
   margin-right: auto;
   font-size: 30px
 }
+
+input {
+  border: 2px solid blue;
+  border-radius: 4px;
+  margin: 6px 0;
+  font-size: 15px
+}
+
+select {
+  border: 2px solid blue;
+  border-radius: 4px;
+  margin: 6px 0;
+  font-size: 15px
+}

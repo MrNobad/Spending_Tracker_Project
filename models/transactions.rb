@@ -108,7 +108,7 @@ class Transaction
 
     running_total = 0
     for transaction in all_transactions
-      running_total += transaction.amount
+      running_total+= transaction.amount.to_f
     end
 
     return running_total

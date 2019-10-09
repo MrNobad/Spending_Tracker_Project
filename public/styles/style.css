@@ -1,8 +1,8 @@
 body {
-  background: white url('/images/Untitled design.png');
+  background: white url('/images/animation.gif');
   background-size: 60%;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: round;
   font-family: Helvetica;
   color: blue;
 }
@@ -16,15 +16,51 @@ body.center {
 h1 {
   background-color: lightblue;
   text-align: center;
+  border: 2px solid blue;
+  border-radius: 4px;
   font-size: 40px
+}
+
+h1.main {
+  background-color: lightblue;
+  text-align: center;
+  height: 100px;
+  border: 2px solid blue;
+  border-radius: 4px;
+  font-size: 80px
 }
 
 a.center {
   display: block;
+  width: 200px;
+  margin: 4px;
+  padding: 2px;
   text-align: center;
   font-size: 20px;
-  
+  border: 2px solid blue;
+  border-radius: 4px;
+  background-color: lightblue;
+  text-decoration: none;
+}
 
+ul.nav {
+  list-style-type: none;
+  padding-left: 220px
+}
+
+li {
+  float: left;
+}
+
+a {
+  display: block;
+  padding: 10px;
+  background-color: none;
+}
+
+.active {
+  background-color: none;
+  color: blue;
 }
 
 p.center {
@@ -36,7 +72,7 @@ form.center {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  font-size: 20px;
+  font-size: 10px;
 }
 
 label.center {
@@ -45,12 +81,4 @@ label.center {
   margin-right: auto;
   text-align: center;
   font-size: 20px
-}
-
-.flex {
-  display: flex;
-}
-
-.flex--row {
-  flex-direction: row;
 }
