@@ -39,9 +39,3 @@ post '/transactions/:id/delete' do
   Transaction.delete(params[:id])
   redirect to("/transactions")
 end
-
-
-
-# post "/transactions/sorted" do
-#   redirect to("/transactions/sorted/"+params[:transaction_id])
-# end
